@@ -1,0 +1,6 @@
+@Recipeback_HostAddress = http://localhost:5133
+
+GET {{Recipeback_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
