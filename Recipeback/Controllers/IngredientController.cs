@@ -9,10 +9,12 @@ namespace Recipeback.Controllers
     public class IngredientController : ControllerBase
     {
         StockRecipesContext dbContext = new StockRecipesContext();
-
-        [HttpPost("name")]
+        
+        //add ingredient
+        [HttpPost("/Ingredient/{name}")]
         public IActionResult AddIngredient(Ingredient name)
         {
+            name.Id = 0;
             if(name == null)
             {
                 return BadRequest();
@@ -22,6 +24,8 @@ namespace Recipeback.Controllers
             return Created($"api/Ingredient/{name.Id}", name);
 
         }
+
+        //retrieving ingredient information in a list
         [HttpGet()]
         public IActionResult GetAllIngredients()
         {
@@ -29,6 +33,7 @@ namespace Recipeback.Controllers
             return Ok(result);
         }
 
+        //retrieving ingredient information for the recipe requested
         [HttpGet("recipe")]
         public IActionResult GetIngredients(string recipe)
         {
@@ -43,6 +48,7 @@ namespace Recipeback.Controllers
             return Ok(ingredient);
         }
 
+        //removing ingredients
         [HttpDelete("{name}")]
         public IActionResult RemoveIngredient(string name)
         {
@@ -51,6 +57,18 @@ namespace Recipeback.Controllers
             dbContext.Ingredients.Remove(ingredient);
             dbContext.SaveChanges();
             return NoContent();
+        }
+
+        //updating an ingredients item
+        [HttpPut("{id}")]
+        public IActionResult UpdateIngredient([FromBody] Ingredient ingredient, int id)
+        {
+            if(id != ingredient.Id){ return BadRequest(); }
+            if(!dbContext.Ingredients.Any(i => i.Id == id)){ return NotFound(); }
+            dbContext.Ingredients.Update(ingredient);
+            dbContext.SaveChanges();
+            return NoContent();
+
         }
     }
 }
