@@ -1,5 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
 
+//This line should exist
+var builder = WebApplication.CreateBuilder(args);
+//cors
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            //replace localhost with yours
+            //also add your deployed website
+            policy.WithOrigins("http://localhost:4200", "http://localhost:7020",
+                                "https://MyChatRoom.com").AllowAnyMethod().AllowAnyHeader();
+        });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -22,4 +35,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//Cors
+app.UseCors();
 app.Run();

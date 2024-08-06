@@ -48,7 +48,7 @@ namespace Recipeback.Controllers
             return Ok(ingredient);
         }
 
-        //removing ingredients
+        //removing ingredients ny name
         [HttpDelete("{name}")]
         public IActionResult RemoveIngredient(string name)
         {
