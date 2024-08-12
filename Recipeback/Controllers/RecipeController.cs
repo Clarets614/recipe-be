@@ -19,6 +19,14 @@ namespace Recipeback.Controllers
             return Ok(result);
         }
 
+        [HttpGet("id")]
+        public IActionResult GetById(int id)
+        {
+            if (!DbContext.Recipes.Any(x=> x.Id == id)){ return NotFound(); }
+            Recipe result = DbContext.Recipes.FirstOrDefault(x => x.Id == id);
+            return Ok(result);
+        }
+
         //adds a recipe item to recipes database
         [HttpPost("/Recipe")]
         public IActionResult AddRecipe(Recipe recipe)
