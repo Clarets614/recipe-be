@@ -13,9 +13,14 @@ namespace Recipeback.Controllers
 
         //retrieves a list of recipes
         [HttpGet()]
-        public IActionResult GetAllRecipes()
+        public IActionResult GetAllRecipes(string? q = null)
         {
             List <Recipe> result = DbContext.Recipes.ToList();
+
+            if(q != null)
+            {
+                result = result.Where(r => r.Title.ToLower().Contains(q.ToLower())).ToList();
+            }
             return Ok(result);
         }
 
