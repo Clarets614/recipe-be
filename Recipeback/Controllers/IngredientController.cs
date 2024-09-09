@@ -37,6 +37,7 @@ namespace Recipeback.Controllers
         [HttpGet("recipe")]
         public IActionResult GetIngredients(string recipe)
         {
+            //recipe = recipe.Trim().ToLower();
             if (recipe == null)
             {
                 return NotFound();
@@ -44,7 +45,7 @@ namespace Recipeback.Controllers
             {
                 
             }
-            List<Ingredient> ingredient = dbContext.Ingredients.Where(x => x.Recipe == recipe).ToList();
+            List<Ingredient> ingredient = dbContext.Ingredients.Where(x => x.Recipe.ToLower().Contains(recipe.ToLower())).ToList();
             return Ok(ingredient);
         }
 
