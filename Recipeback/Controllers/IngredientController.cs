@@ -37,7 +37,6 @@ namespace Recipeback.Controllers
         [HttpGet("recipe")]
         public IActionResult GetIngredients(string recipe)
         {
-            recipe = recipe.Replace(" ", "%20");
             if (recipe == null)
             {
                 return NotFound();
