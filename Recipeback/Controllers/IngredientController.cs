@@ -11,17 +11,13 @@ namespace Recipeback.Controllers
         StockRecipesContext dbContext = new StockRecipesContext();
         
         //add ingredient
-        [HttpPost("/Ingredient/{name}")]
-        public IActionResult AddIngredient(Ingredient name)
+        [HttpPost()]
+        public IActionResult AddIngredient([FromBody] Ingredient ingredient)
         {
-            name.Id = 0;
-            if(name == null)
-            {
-                return BadRequest();
-            }
-            dbContext.Ingredients.Add(name);
+            ingredient.Id = 0;
+            dbContext.Ingredients.Add(ingredient);
             dbContext.SaveChanges();
-            return Created($"api/Ingredient/{name.Id}", name);
+            return Created($"api/Ingredient/{ingredient.Id}", ingredient);
 
         }
 
@@ -48,13 +44,24 @@ namespace Recipeback.Controllers
             return Ok(ingredient);
         }
 
-        //removing ingredients by name
-        [HttpDelete("{name}")]
-        public IActionResult RemoveIngredient(string name)
+        ////removing ingredients by name
+        //[HttpDelete("{name}")]
+        //public IActionResult RemoveIngredient(string name)
+        //{
+        //    if (string.IsNullOrEmpty(name)) { return NotFound(); }
+        //    Ingredient ingredient = dbContext.Ingredients.FirstOrDefault(x => x.Itemname == name);
+        //    dbContext.Ingredients.Remove(ingredient);
+        //    dbContext.SaveChanges();
+        //    return NoContent();
+        //}
+
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteIngredient(int id)
         {
-            if (string.IsNullOrEmpty(name)) { return NotFound(); }
-            Ingredient ingredient = dbContext.Ingredients.FirstOrDefault(x => x.Itemname == name);
-            dbContext.Ingredients.Remove(ingredient);
+            Ingredient result = dbContext.Ingredients.Find(id);
+            if (result == null) { return NotFound(); }
+            dbContext.Ingredients.Remove(result);
             dbContext.SaveChanges();
             return NoContent();
         }
