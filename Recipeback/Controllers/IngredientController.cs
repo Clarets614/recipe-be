@@ -44,16 +44,6 @@ namespace Recipeback.Controllers
             return Ok(ingredient);
         }
 
-        ////removing ingredients by name
-        //[HttpDelete("{name}")]
-        //public IActionResult RemoveIngredient(string name)
-        //{
-        //    if (string.IsNullOrEmpty(name)) { return NotFound(); }
-        //    Ingredient ingredient = dbContext.Ingredients.FirstOrDefault(x => x.Itemname == name);
-        //    dbContext.Ingredients.Remove(ingredient);
-        //    dbContext.SaveChanges();
-        //    return NoContent();
-        //}
 
         [HttpDelete("{id}")]
 
