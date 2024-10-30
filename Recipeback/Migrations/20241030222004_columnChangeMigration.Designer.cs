@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Recipeback.Models;
@@ -11,9 +12,11 @@ using Recipeback.Models;
 namespace Recipeback.Migrations
 {
     [DbContext(typeof(StockRecipesContext))]
-    partial class StockRecipesContextModelSnapshot : ModelSnapshot
+    [Migration("20241030222004_columnChangeMigration")]
+    partial class columnChangeMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,10 +68,7 @@ namespace Recipeback.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CookTime")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Directions")
+                    b.Property<string>("Steps")
                         .HasColumnType("text");
 
                     b.Property<string>("Title")
