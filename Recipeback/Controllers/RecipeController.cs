@@ -11,7 +11,7 @@ namespace Recipeback.Controllers
     {
         StockRecipesContext DbContext = new StockRecipesContext();
 
-        //retrieves a list of recipes
+        //gets a list of recipes
         [HttpGet()]
         public IActionResult GetAllRecipes(string? q = null)
         {
@@ -33,7 +33,7 @@ namespace Recipeback.Controllers
         }
 
         //adds a recipe item to recipes database
-        [HttpPost("/Recipe")]
+        [HttpPost]
         public IActionResult AddRecipe(Recipe recipe)
         {
             recipe.Id = 0;
