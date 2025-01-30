@@ -43,7 +43,7 @@ namespace Recipeback.Controllers
         }
 
         //removes recipe item from the database by the id number
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteRecipe(int id)
         {
             Recipe recipe = DbContext.Recipes.Find(id);
